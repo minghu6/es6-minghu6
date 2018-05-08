@@ -1,10 +1,9 @@
-const constantIntervalFactory = (f, time, goOn) => {
+factory.fixedIntervalFactory = (f, time) => {
     function innerFunc() {
-        if (goOn) {
-            f()
-            setTimeout(innerFunc, time)
+        if (!f.needClear) {
+            f().finally(setTimeout(innerFunc, time))
         }
     }
-    
+
     innerFunc()
 }
